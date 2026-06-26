@@ -7,10 +7,8 @@ const paragraphs = [
   {
     text: (
       <>
-        It all started on a regular day when I was teaching{' '}
-        <strong className="text-foreground">Sawaira Jaffar</strong> and{' '}
-        <strong className="text-foreground">Sana Jaffar</strong>. We were working on understanding
-        keyboards — everything from the different layouts to where the function keys are located, and
+        It all started on a regular day during a remote teaching session. We were working on
+        understanding keyboards — everything from the different layouts to where the function keys are located, and
         even the proper way to position your fingers on the keys. But there was a big problem. We
         weren&apos;t all available at the same physical location. We needed to learn remotely, but
         without an actual keyboard in front of us, it was really difficult to explain and demonstrate
@@ -67,7 +65,7 @@ const paragraphs = [
     text: (
       <>
         Looking back, it&apos;s funny how the best ideas come from real problems. I never imagined
-        that a remote teaching session with Sawaira and Sana would lead to creating an actual
+        that the challenge of teaching keyboard basics remotely would lead to creating an actual
         application. But sometimes that&apos;s how it works — you face a challenge, and you figure out
         a solution that ends up helping way more people than you expected.
       </>
