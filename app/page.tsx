@@ -1,26 +1,43 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import Navbar from '@/components/Navbar';
+import Hero from '@/components/Hero';
+import Stats from '@/components/Stats';
+import Features from '@/components/Features';
+import HowItWorks from '@/components/HowItWorks';
+import Demo from '@/components/Demo';
+import UseCases from '@/components/UseCases';
+import Downloads from '@/components/Downloads';
+import WhyChoose from '@/components/WhyChoose';
+import Platforms from '@/components/Platforms';
+import TechnologyStack from '@/components/TechnologyStack';
+import Comparison from '@/components/Comparison';
+import SystemRequirements from '@/components/SystemRequirements';
+import FAQ from '@/components/FAQ';
+import Story from '@/components/Story';
+import About from '@/components/About';
+import Footer from '@/components/Footer';
 
 export default function Home() {
-  const [count, setCount] = useState(0);
-
   return (
-    <div className="root">
-      <img
-        src="/favicon.svg"
-        alt="Roboticela DevKit"
-        className="app-logo"
-      />
-      <h1>Roboticela DevKit</h1>
-      <div className="card">
-        <button type="button" onClick={() => setCount((c) => c + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>app/page.tsx</code> and save to test HMR
-        </p>
-      </div>
+    <div className="min-h-screen bg-background transition-colors duration-300 overflow-x-hidden w-full max-w-full">
+      <Navbar />
+      <Hero />
+      <Stats />
+      <Features />
+      <Story />
+      <HowItWorks />
+      <Demo />
+      <UseCases />
+      <Downloads />
+      <WhyChoose />
+      <Platforms />
+      <TechnologyStack />
+      <Comparison />
+      <SystemRequirements />
+      <FAQ />
+      <About />
+      <Footer />
     </div>
   );
 }
