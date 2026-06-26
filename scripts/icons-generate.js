@@ -58,15 +58,15 @@ async function main() {
     console.log(`   ${name} (${size}×${size})`);
   }
 
-  // favicon.ico (multi-size) using to-ico if available
+  // favicon.ico (multi-size) using sharp-ico if available
   try {
-    const toIco = require("to-ico");
-    const icoBuffer = await toIco([buffers[16], buffers[32]]);
+    const ico = require("sharp-ico");
+    const icoBuffer = ico.encode([buffers[16], buffers[32]]);
     fs.writeFileSync(path.join(publicDir, "favicon.ico"), icoBuffer);
     console.log("   favicon.ico (16×16, 32×32)");
   } catch (e) {
     if (e.code !== "MODULE_NOT_FOUND") throw e;
-    console.log("   (Skip favicon.ico; install to-ico for .ico: npm install --save-dev to-ico)");
+    console.log("   (Skip favicon.ico; install sharp-ico: npm install --save-dev sharp-ico)");
   }
 
   console.log("\n✅ Web icons generated in public/");
