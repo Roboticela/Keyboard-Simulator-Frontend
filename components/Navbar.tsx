@@ -25,12 +25,12 @@ export default function Navbar() {
   const navLinks = [
     { href: '/', label: 'Home' },
     { href: '/blogs', label: 'Blog' },
+    { href: '#games', label: 'Games' },
     { href: '#downloads', label: 'Download' },
     { href: '#story', label: 'Story' },
     { href: '#about', label: 'About' },
     { href: SUPPORT_URL, label: 'Support' },
-  ].filter((link) => !(isHome && link.href === '/'))
-    .filter((link) => !(isBlog && link.href === '/blogs'));
+  ].filter((link) => !(isBlog && link.href === '/blogs'));
 
   const renderNavLink = (link: (typeof navLinks)[number]) => {
     if (link.href.startsWith('http')) {

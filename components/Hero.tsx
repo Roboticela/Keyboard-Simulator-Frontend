@@ -1,9 +1,9 @@
 ﻿'use client';
 
 import { motion } from 'framer-motion';
-import { Download, ExternalLink, Keyboard, Layers, Zap, Hand, Monitor, Globe } from 'lucide-react';
+import { Download, ExternalLink, Gamepad2, Keyboard, Layers, Zap, Hand, Monitor, Globe } from 'lucide-react';
 import Link from 'next/link';
-import { APP_URL } from '@/lib/constants';
+import { APP_URL, GAMES_URL } from '@/lib/constants';
 
 const benefits = [
   { icon: Keyboard, text: '5 Laptop Models' },
@@ -83,7 +83,7 @@ export default function Hero() {
             and animated hands. Use it in your browser or download the desktop app.
           </motion.p>
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center px-4 w-full sm:w-auto"
+            className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center items-center px-4 w-full sm:w-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7 }}
@@ -98,6 +98,17 @@ export default function Hero() {
             >
               <ExternalLink className="text-lg sm:text-xl" />
               Open Simulator
+            </motion.a>
+            <motion.a
+              href={GAMES_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-card/40 hover:bg-card/60 backdrop-blur-md rounded-xl font-semibold text-base sm:text-lg transition-colors flex items-center justify-center gap-2 text-foreground border border-border/40"
+            >
+              <Gamepad2 className="text-lg sm:text-xl" />
+              Play Games
             </motion.a>
             <Link href="#downloads" className="w-full sm:w-auto">
               <motion.div

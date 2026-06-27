@@ -39,6 +39,8 @@ This repository contains the **official landing page** for [Keyboard Simulator](
 
 Keyboard Simulator is a cross-platform application for realistic keyboard simulation and visualization. This frontend project does not include the desktop or mobile app itself; it serves the public website that introduces the product, links to downloads and resources, and presents key information to visitors.
 
+The landing page links to the **web app** at [app.keyboard-simulator.roboticela.com](https://app.keyboard-simulator.roboticela.com) for the live 3D simulator and to [app.keyboard-simulator.roboticela.com/games](https://app.keyboard-simulator.roboticela.com/games) for **20 keyboard games** — each focused on a single skill (typing speed, accuracy, shortcuts, layouts, reaction time, and more).
+
 The landing page is built with **Next.js**, **React**, and **TypeScript**, styled with **Tailwind CSS**, and configured through [Roboticela DevKit](https://github.com/Roboticela/DevKit).
 
 ---
@@ -94,6 +96,14 @@ npm run start
 npm run lint
 ```
 
+### IndexNow (search engine URL submission)
+
+```bash
+npm run indexnow:submit
+```
+
+Requires `INDEXNOW_KEY` and `INDEXNOW_SUBMIT_SECRET` — see `.env.example`.
+
 ---
 
 ## 🎨 Icons Generation
@@ -124,13 +134,28 @@ This writes web icons to `public/`:
 ```
 Keyboard-Simulator-Frontend/
 ├── app/
-│   ├── layout.tsx          # Root layout and metadata
-│   ├── page.tsx            # Landing page
-│   └── globals.css         # Global styles
+│   ├── layout.tsx          # Root layout, metadata, theme script
+│   ├── page.tsx            # Landing page (metadata + HomePage)
+│   ├── blogs/              # Blog index and article routes
+│   ├── sitemap.ts          # Sitemap generation
+│   ├── robots.ts           # Robots.txt
+│   └── globals.css         # Global styles and themes
+├── components/
+│   ├── HomePage.tsx        # Landing page sections
+│   ├── Hero.tsx            # Hero with simulator & games CTAs
+│   ├── Games.tsx           # 20 single-purpose game cards (links to web app)
+│   ├── Navbar.tsx, Footer.tsx
+│   └── blogs/              # Blog list and article UI
+├── lib/
+│   ├── constants.ts        # SITE_URL, APP_URL, GAMES_URL, etc.
+│   ├── games/              # Game titles, slugs, and external URLs
+│   ├── blogs/              # Blog content and helpers
+│   └── seo/                # SEO metadata helpers
 ├── public/
 │   └── favicon.svg         # Default icon source
 ├── scripts/
-│   └── icons-generate.js   # Web icon generation
+│   ├── icons-generate.js   # Web icon generation
+│   └── submit-indexnow.mjs # IndexNow submission
 ├── devkit.config.json      # DevKit site and theme config
 ├── next.config.ts
 ├── package.json
@@ -138,11 +163,23 @@ Keyboard-Simulator-Frontend/
 └── README.md
 ```
 
+### External links (configured in `lib/constants.ts`)
+
+| Constant   | URL |
+|------------|-----|
+| `SITE_URL` | https://keyboard-simulator.roboticela.com |
+| `APP_URL`  | https://app.keyboard-simulator.roboticela.com |
+| `GAMES_URL`| https://app.keyboard-simulator.roboticela.com/games |
+
+Games are hosted in the web app, not in this landing-page repo. The hero, `#games` section, and each game card link to `GAMES_URL/{slug}` (e.g. `/games/typing-speed-test`).
+
 ---
 
 ## 💬 Support
 
 - **Website:** [keyboard-simulator.roboticela.com](https://keyboard-simulator.roboticela.com)
+- **Web app:** [app.keyboard-simulator.roboticela.com](https://app.keyboard-simulator.roboticela.com)
+- **Games:** [app.keyboard-simulator.roboticela.com/games](https://app.keyboard-simulator.roboticela.com/games)
 - **Repository:** [Roboticela/Keyboard-Simulator-Frontend](https://github.com/Roboticela/Keyboard-Simulator-Frontend)
 
 For bugs or requests related to the main Keyboard Simulator application, see the [Keyboard Simulator](https://github.com/Roboticela/Keyboard-Simulator) repository.

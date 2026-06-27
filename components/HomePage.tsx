@@ -10,6 +10,7 @@ const Features = dynamic(() => import('@/components/Features'));
 const Story = dynamic(() => import('@/components/Story'));
 const HowItWorks = dynamic(() => import('@/components/HowItWorks'));
 const Demo = dynamic(() => import('@/components/Demo'));
+const Games = dynamic(() => import('@/components/Games'));
 const UseCases = dynamic(() => import('@/components/UseCases'));
 const Downloads = dynamic(() => import('@/components/Downloads'));
 const WhyChoose = dynamic(() => import('@/components/WhyChoose'));
@@ -31,6 +32,7 @@ export default function HomePage() {
         <Story />
         <HowItWorks />
         <Demo />
+        <Games />
         <UseCases />
         <Downloads />
         <WhyChoose />

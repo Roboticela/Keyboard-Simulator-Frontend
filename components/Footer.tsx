@@ -5,7 +5,7 @@ import { FaGithub } from 'react-icons/fa';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SiteLogo } from './SiteLogo';
-import { GITHUB_REPO, SITE_NAME, APP_URL } from '@/lib/constants';
+import { GITHUB_REPO, SITE_NAME, APP_URL, GAMES_URL } from '@/lib/constants';
 
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -83,6 +83,7 @@ export default function Footer() {
               )}
               <li>{hashLink('#features', 'Features')}</li>
               <li>{hashLink('#demo', 'Demo')}</li>
+              <li>{hashLink('#games', 'Games')}</li>
               <li>{hashLink('#downloads', 'Download')}</li>
             </ul>
           </div>
@@ -92,6 +93,16 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>{hashLink('#story', 'Story')}</li>
               <li>{hashLink('#about', 'About')}</li>
+              <li>
+                <a
+                  href={GAMES_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-foreground/70 hover:text-primary transition-colors"
+                >
+                  Play Games
+                </a>
+              </li>
             </ul>
           </div>
 
