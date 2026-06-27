@@ -10,12 +10,32 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: `${SITE_NAME} – Interactive 3D Keyboard Simulation`,
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} – Interactive 3D Keyboard Simulation`,
+    template: `%s – ${SITE_NAME}`,
+  },
   description:
     'Cross-platform 3D keyboard simulator with real-time typing feedback, five laptop models, animated hands, and eight themes. Free and open source.',
   keywords:
     'keyboard simulator, 3D keyboard, typing tutor, laptop keyboard, keyboard visualization, Tauri, React Three Fiber, education',
-  authors: [{ name: 'Roboticela' }],
+  authors: [{ name: 'Roboticela', url: 'https://roboticela.com' }],
+  creator: 'Roboticela',
+  publisher: 'Roboticela',
+  alternates: {
+    canonical: '/',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   icons: {
     icon: [
       { url: '/favicon.ico' },
@@ -30,7 +50,25 @@ export const metadata: Metadata = {
       'Experience laptop keyboards in stunning 3D with live typing feedback. Free, open source, and cross-platform.',
     type: 'website',
     url: SITE_URL,
+    siteName: SITE_NAME,
+    locale: 'en_US',
+    images: [
+      {
+        url: '/apple-touch-icon.png',
+        width: 180,
+        height: 180,
+        alt: SITE_NAME,
+      },
+    ],
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${SITE_NAME} – Interactive 3D Keyboard Simulation`,
+    description:
+      'Experience laptop keyboards in stunning 3D with live typing feedback. Free, open source, and cross-platform.',
+    images: ['/apple-touch-icon.png'],
+  },
+  category: 'technology',
 };
 
 export default function RootLayout({
@@ -38,6 +76,20 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const websiteJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE_NAME,
+    url: SITE_URL,
+    description:
+      'Cross-platform 3D keyboard simulator with real-time typing feedback, five laptop models, animated hands, and eight themes.',
+    publisher: {
+      '@type': 'Organization',
+      name: 'Roboticela',
+      url: 'https://roboticela.com',
+    },
+  };
+
   return (
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
@@ -71,6 +123,10 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} antialiased`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
         {children}
         <Script
           id="microsoft-clarity"

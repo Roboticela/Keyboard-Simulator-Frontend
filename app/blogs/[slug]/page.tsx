@@ -6,7 +6,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import BlogContent from '@/components/blogs/BlogContent';
 import { getAdjacentPosts, getAllPostSlugs, getPostBySlug } from '@/lib/blogs';
-import { SITE_NAME } from '@/lib/constants';
+import { SITE_NAME, SITE_URL } from '@/lib/constants';
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -22,12 +22,21 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   if (!post) return { title: `Blog – ${SITE_NAME}` };
 
   return {
-    title: `${post.title} – ${SITE_NAME} Blog`,
+    title: post.title,
     description: post.excerpt,
+    alternates: {
+      canonical: `/blogs/${slug}`,
+    },
     openGraph: {
       title: post.title,
       description: post.excerpt,
       type: 'article',
+      url: `/blogs/${slug}`,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.excerpt,
     },
   };
 }
@@ -40,10 +49,36 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   const { prev, next } = getAdjacentPosts(slug);
 
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description: post.excerpt,
+    url: `${SITE_URL}/blogs/${slug}`,
+    author: {
+      '@type': 'Organization',
+      name: 'Roboticela',
+      url: 'https://roboticela.com',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Roboticela',
+      url: 'https://roboticela.com',
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${SITE_URL}/blogs/${slug}`,
+    },
+  };
+
   return (
     <div className="min-h-screen bg-background transition-colors duration-300 overflow-x-hidden w-full max-w-full">
       <Navbar />
       <main className="pt-24 pb-16 px-4">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+        />
         <article className="max-w-3xl mx-auto">
           <Link
             href="/blogs"

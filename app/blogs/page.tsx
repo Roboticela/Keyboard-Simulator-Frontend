@@ -4,12 +4,27 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import BlogListClient from '@/components/blogs/BlogListClient';
 import { getAllPostsMeta } from '@/lib/blogs';
-import { SITE_NAME } from '@/lib/constants';
 
 export const metadata: Metadata = {
-  title: `Blog – ${SITE_NAME}`,
+  title: 'Blog',
   description:
     'Articles about keyboards, typing techniques, laptop layouts, and using the Keyboard Simulator for learning and teaching.',
+  alternates: {
+    canonical: '/blogs',
+  },
+  openGraph: {
+    title: 'Keyboard & Typing Blog',
+    description:
+      'Articles about keyboards, typing techniques, laptop layouts, and using the Keyboard Simulator for learning and teaching.',
+    url: '/blogs',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Keyboard & Typing Blog',
+    description:
+      'Articles about keyboards, typing techniques, laptop layouts, and using the Keyboard Simulator for learning and teaching.',
+  },
 };
 
 export default function BlogsPage() {
