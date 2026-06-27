@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
 import { useState, useEffect } from 'react';
@@ -74,7 +75,7 @@ export default function Demo() {
             ) : (
               <div className="w-full h-full flex items-center justify-center">
                 <div className="text-center">
-                  <img src="/favicon.svg" alt={`${SITE_NAME} Demo`} className="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4" />
+                  <Image src="/favicon.svg" alt={`${SITE_NAME} Demo`} width={80} height={80} className="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4" />
                   <p className="text-foreground/70 text-lg">Interactive Simulator</p>
                   <p className="text-foreground/50 text-sm mt-2">Click &quot;Launch Simulator&quot; to try it</p>
                 </div>

@@ -92,6 +92,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
         <link rel="preload" href="/favicon.svg" as="image" type="image/svg+xml" />
+        <link rel="preconnect" href="https://app.keyboard-simulator.roboticela.com" />
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <script

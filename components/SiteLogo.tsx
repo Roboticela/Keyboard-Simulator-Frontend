@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { SITE_NAME } from '@/lib/constants';
 
 interface SiteLogoProps {
@@ -16,7 +17,7 @@ export function SiteLogo({
 }: SiteLogoProps) {
   return (
     <span className={className}>
-      <img src="/favicon.svg" alt="" aria-hidden="true" className={imageClassName} />
+      <Image src="/favicon.svg" alt="" aria-hidden="true" width={24} height={24} className={imageClassName} />
       {showName && <span className={nameClassName}>{SITE_NAME}</span>}
     </span>
   );

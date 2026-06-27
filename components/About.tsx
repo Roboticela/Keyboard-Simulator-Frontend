@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Heart, Users, Shield, TrendingUp } from 'lucide-react';
 import { GITHUB_REPO } from '@/lib/constants';
@@ -80,9 +81,11 @@ export default function About() {
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
         >
-          <img
+          <Image
             src="/CompanyLogo.png"
             alt="Roboticela"
+            width={200}
+            height={222}
             className="w-40 h-auto mx-auto mb-6 opacity-90"
           />
           <p className="text-foreground/70 mb-4">
