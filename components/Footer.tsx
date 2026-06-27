@@ -102,6 +102,11 @@ export default function Footer() {
             <h3 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wider">Resources</h3>
             <ul className="space-y-2">
               <li>
+                <Link href="/blogs" className="text-sm text-foreground/70 hover:text-primary transition-colors">
+                  Blog
+                </Link>
+              </li>
+              <li>
                 <a
                   href={SUPPORT_URL}
                   target="_blank"
