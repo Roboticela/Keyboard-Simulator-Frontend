@@ -3,25 +3,49 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { APP_URL, SITE_NAME } from '@/lib/constants';
 
 export default function Demo() {
   const [isDesktop, setIsDesktop] = useState(false);
+  const [iframeReady, setIframeReady] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const checkDesktop = () => {
-      setIsDesktop(window.innerWidth >= 1024);
-    };
-
+    const checkDesktop = () => setIsDesktop(window.innerWidth >= 1024);
     checkDesktop();
     window.addEventListener('resize', checkDesktop);
-
     return () => window.removeEventListener('resize', checkDesktop);
   }, []);
 
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          // Warm the connection right before we need it
+          const hint = document.createElement('link');
+          hint.rel = 'preconnect';
+          hint.href = new URL(APP_URL).origin;
+          document.head.appendChild(hint);
+
+          setIframeReady(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '0px 0px 300px 0px' },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const showIframe = isDesktop && iframeReady;
+
   return (
-    <section id="demo" className="py-16 md:py-24 px-4 overflow-x-hidden">
+    <section ref={sectionRef} id="demo" className="py-16 md:py-24 px-4 overflow-x-hidden">
       <div className="max-w-7xl mx-auto">
         <motion.div
           className="text-center mb-16"
@@ -64,20 +88,27 @@ export default function Demo() {
           transition={{ delay: 0.2 }}
         >
           <div className="aspect-video w-full bg-accent/10 border border-border rounded-lg overflow-hidden">
-            {isDesktop ? (
+            {showIframe ? (
               <iframe
                 src={APP_URL}
                 className="w-full h-full"
                 title={SITE_NAME}
-                loading="lazy"
                 sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center">
                 <div className="text-center">
-                  <Image src="/favicon.svg" alt={`${SITE_NAME} Demo`} width={80} height={80} className="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4" />
+                  <Image
+                    src="/favicon.svg"
+                    alt={`${SITE_NAME} Demo`}
+                    width={80}
+                    height={80}
+                    className="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4"
+                  />
                   <p className="text-foreground/70 text-lg">Interactive Simulator</p>
-                  <p className="text-foreground/50 text-sm mt-2">Click &quot;Launch Simulator&quot; to try it</p>
+                  <p className="text-foreground/50 text-sm mt-2">
+                    {isDesktop ? 'Scroll to load the interactive preview' : 'Click \u201cLaunch Simulator\u201d to try it'}
+                  </p>
                 </div>
               </div>
             )}
