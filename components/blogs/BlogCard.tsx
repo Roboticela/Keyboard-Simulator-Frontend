@@ -9,7 +9,7 @@ interface BlogCardProps {
 export default function BlogCard({ post }: BlogCardProps) {
   return (
     <article className="group bg-card/40 backdrop-blur-md rounded-xl border border-border/40 p-6 hover:border-primary/40 hover:bg-card/60 transition-all duration-300 flex flex-col h-full">
-      <div className="flex items-center gap-1.5 text-xs font-medium text-foreground/50 mb-3">
+      <div className="flex items-center gap-1.5 text-xs font-medium text-foreground/65 mb-3">
         <Calendar className="w-3.5 h-3.5" />
         Keyboard & Typing
       </div>

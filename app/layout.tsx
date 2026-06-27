@@ -2,29 +2,24 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { SITE_NAME, SITE_URL } from '@/lib/constants';
+import { HOME_SEO } from '@/lib/seo';
 import Script from 'next/script';
 
 const inter = Inter({
   variable: '--font-inter',
   subsets: ['latin'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: {
-    default: `${SITE_NAME} – Interactive 3D Keyboard Simulation`,
-    template: `%s – ${SITE_NAME}`,
-  },
-  description:
-    'Cross-platform 3D keyboard simulator with real-time typing feedback, five laptop models, animated hands, and eight themes. Free and open source.',
+  title: HOME_SEO.title,
+  description: HOME_SEO.description,
   keywords:
     'keyboard simulator, 3D keyboard, typing tutor, laptop keyboard, keyboard visualization, Tauri, React Three Fiber, education',
   authors: [{ name: 'Roboticela', url: 'https://roboticela.com' }],
   creator: 'Roboticela',
   publisher: 'Roboticela',
-  alternates: {
-    canonical: '/',
-  },
   robots: {
     index: true,
     follow: true,
@@ -45,9 +40,8 @@ export const metadata: Metadata = {
     apple: '/apple-touch-icon.png',
   },
   openGraph: {
-    title: `${SITE_NAME} – Interactive 3D Keyboard Simulation`,
-    description:
-      'Experience laptop keyboards in stunning 3D with live typing feedback. Free, open source, and cross-platform.',
+    title: HOME_SEO.title.absolute,
+    description: HOME_SEO.description,
     type: 'website',
     url: SITE_URL,
     siteName: SITE_NAME,
@@ -63,9 +57,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${SITE_NAME} – Interactive 3D Keyboard Simulation`,
-    description:
-      'Experience laptop keyboards in stunning 3D with live typing feedback. Free, open source, and cross-platform.',
+    title: HOME_SEO.title.absolute,
+    description: HOME_SEO.description,
     images: ['/apple-touch-icon.png'],
   },
   category: 'technology',
@@ -81,8 +74,7 @@ export default function RootLayout({
     '@type': 'WebSite',
     name: SITE_NAME,
     url: SITE_URL,
-    description:
-      'Cross-platform 3D keyboard simulator with real-time typing feedback, five laptop models, animated hands, and eight themes.',
+    description: HOME_SEO.description,
     publisher: {
       '@type': 'Organization',
       name: 'Roboticela',
@@ -93,6 +85,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
+        <link rel="preload" href="/favicon.svg" as="image" type="image/svg+xml" />
         <link rel="preconnect" href="https://www.clarity.ms" />
         <link rel="dns-prefetch" href="https://www.clarity.ms" />
 
@@ -123,6 +116,12 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} antialiased`}>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-primary focus:text-background focus:font-semibold"
+        >
+          Skip to main content
+        </a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}

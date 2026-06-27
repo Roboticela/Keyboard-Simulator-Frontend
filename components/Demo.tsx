@@ -81,7 +81,7 @@ export default function Demo() {
               </div>
             )}
           </div>
-          <p className="text-center text-foreground/60 text-sm mt-4">
+          <p className="text-center text-foreground/65 text-sm mt-4">
             {isDesktop
               ? 'Interactive preview — click "Open in New Tab" for full experience'
               : 'Click the button above to launch the simulator in a new tab'}

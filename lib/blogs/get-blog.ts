@@ -1,12 +1,12 @@
 import { BLOG_CONTENT } from './content';
 import { BLOG_POSTS_META } from './posts';
 import { BlogPost, BlogPostMeta } from './types';
-import { excerptFromContent } from './utils';
+import { buildExcerpt } from '@/lib/seo';
 
 function withExcerpt(meta: BlogPostMeta, content: string): BlogPostMeta {
   return {
     ...meta,
-    excerpt: meta.excerpt || excerptFromContent(content),
+    excerpt: meta.excerpt || buildExcerpt(content),
     searchText: `${meta.title} ${content}`.toLowerCase(),
   };
 }

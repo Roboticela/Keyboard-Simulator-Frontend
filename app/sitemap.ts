@@ -2,6 +2,8 @@ import type { MetadataRoute } from 'next';
 import { getAllPostSlugs } from '@/lib/blogs';
 import { SITE_URL } from '@/lib/constants';
 
+export const revalidate = 86400;
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const blogEntries: MetadataRoute.Sitemap = getAllPostSlugs().map((slug) => ({
     url: `${SITE_URL}/blogs/${slug}`,

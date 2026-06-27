@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "indexnow:submit": "node scripts/submit-indexnow.mjs",
     "start": "next start",
     "lint": "eslint",
     "icons:generate": "node scripts/icons-generate.js"

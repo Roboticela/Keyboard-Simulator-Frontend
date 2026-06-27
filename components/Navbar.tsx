@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import ThemeToggle from './ThemeToggle';
+import { SiteLogo } from './SiteLogo';
 import { GITHUB_REPO, SITE_NAME, SUPPORT_URL } from '@/lib/constants';
 
 function scrollToTop() {
@@ -17,6 +18,7 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === '/';
+  const isBlog = pathname === '/blogs' || pathname.startsWith('/blogs/');
 
   const closeMenu = () => setIsMenuOpen(false);
 
@@ -27,7 +29,8 @@ export default function Navbar() {
     { href: '#story', label: 'Story' },
     { href: '#about', label: 'About' },
     { href: SUPPORT_URL, label: 'Support' },
-  ];
+  ].filter((link) => !(isHome && link.href === '/'))
+    .filter((link) => !(isBlog && link.href === '/blogs'));
 
   const renderNavLink = (link: (typeof navLinks)[number]) => {
     if (link.href.startsWith('http')) {
@@ -107,28 +110,36 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-card/70 backdrop-blur-md border-b border-border/40">
+    <nav
+      className="fixed top-0 left-0 right-0 z-50 bg-card/70 backdrop-blur-md border-b border-border/40"
+      aria-label="Main navigation"
+    >
       <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 flex items-center justify-between gap-2 overflow-x-hidden relative z-50">
         {isHome ? (
           <a
-            href="#"
+            href="#main-content"
             onClick={(e) => {
               e.preventDefault();
               scrollToTop();
             }}
             className="flex items-center gap-1.5 sm:gap-2 md:gap-3 min-w-0 flex-1 cursor-pointer"
+            aria-label={`${SITE_NAME} home`}
           >
-            <img src="/favicon.svg" alt={SITE_NAME} className="w-5 h-5 sm:w-6 sm:h-6 md:w-10 md:h-10 shrink-0" />
-            <span className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-bold text-foreground truncate">
-              {SITE_NAME}
-            </span>
+            <SiteLogo
+              imageClassName="w-5 h-5 sm:w-6 sm:h-6 md:w-10 md:h-10 shrink-0"
+              nameClassName="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-bold text-foreground truncate"
+            />
           </a>
         ) : (
-          <Link href="/" className="flex items-center gap-1.5 sm:gap-2 md:gap-3 min-w-0 flex-1">
-            <img src="/favicon.svg" alt={SITE_NAME} className="w-5 h-5 sm:w-6 sm:h-6 md:w-10 md:h-10 shrink-0" />
-            <span className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-bold text-foreground truncate">
-              {SITE_NAME}
-            </span>
+          <Link
+            href="/"
+            className="flex items-center gap-1.5 sm:gap-2 md:gap-3 min-w-0 flex-1"
+            aria-label={`${SITE_NAME} home`}
+          >
+            <SiteLogo
+              imageClassName="w-5 h-5 sm:w-6 sm:h-6 md:w-10 md:h-10 shrink-0"
+              nameClassName="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-bold text-foreground truncate"
+            />
           </Link>
         )}
 

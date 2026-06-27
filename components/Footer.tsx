@@ -1,10 +1,11 @@
 'use client';
 
-import { Mail, ExternalLink } from 'lucide-react';
+import { Mail } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { GITHUB_REPO, SITE_NAME, APP_URL, SUPPORT_URL } from '@/lib/constants';
+import { SiteLogo } from './SiteLogo';
+import { GITHUB_REPO, SITE_NAME, APP_URL } from '@/lib/constants';
 
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -32,20 +33,19 @@ export default function Footer() {
           <div className="col-span-1">
             {isHome ? (
               <a
-                href="#"
+                href="#main-content"
                 onClick={(e) => {
                   e.preventDefault();
                   scrollToTop();
                 }}
-                className="flex items-center gap-2 mb-4 cursor-pointer"
+                className="mb-4 inline-block cursor-pointer"
+                aria-label={`${SITE_NAME} home`}
               >
-                <img src="/favicon.svg" alt={SITE_NAME} className="w-6 h-6 shrink-0" />
-                <span className="text-lg font-semibold text-foreground">{SITE_NAME}</span>
+                <SiteLogo />
               </a>
             ) : (
-              <Link href="/" className="flex items-center gap-2 mb-4">
-                <img src="/favicon.svg" alt={SITE_NAME} className="w-6 h-6 shrink-0" />
-                <span className="text-lg font-semibold text-foreground">{SITE_NAME}</span>
+              <Link href="/" className="mb-4 inline-block" aria-label={`${SITE_NAME} home`}>
+                <SiteLogo />
               </Link>
             )}
             <p className="text-sm text-foreground/60 mb-4">
@@ -74,24 +74,13 @@ export default function Footer() {
           <div className="col-span-1">
             <h3 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wider">Product</h3>
             <ul className="space-y-2">
-              <li>
-                {isHome ? (
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      scrollToTop();
-                    }}
-                    className="text-sm text-foreground/70 hover:text-primary transition-colors cursor-pointer"
-                  >
-                    Home
-                  </a>
-                ) : (
+              {!isHome && (
+                <li>
                   <Link href="/" className="text-sm text-foreground/70 hover:text-primary transition-colors">
                     Home
                   </Link>
-                )}
-              </li>
+                </li>
+              )}
               <li>{hashLink('#features', 'Features')}</li>
               <li>{hashLink('#demo', 'Demo')}</li>
               <li>{hashLink('#downloads', 'Download')}</li>
@@ -101,34 +90,8 @@ export default function Footer() {
           <div className="col-span-1">
             <h3 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wider">Resources</h3>
             <ul className="space-y-2">
-              <li>
-                <Link href="/blogs" className="text-sm text-foreground/70 hover:text-primary transition-colors">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <a
-                  href={SUPPORT_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-foreground/70 hover:text-primary transition-colors inline-flex items-center gap-1"
-                >
-                  Support
-                  <ExternalLink className="w-3 h-3 shrink-0 opacity-70" />
-                </a>
-              </li>
               <li>{hashLink('#story', 'Story')}</li>
               <li>{hashLink('#about', 'About')}</li>
-              <li>
-                <a
-                  href={GITHUB_REPO}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-foreground/70 hover:text-primary transition-colors"
-                >
-                  GitHub
-                </a>
-              </li>
             </ul>
           </div>
 

@@ -6,7 +6,8 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import BlogContent from '@/components/blogs/BlogContent';
 import { getAdjacentPosts, getAllPostSlugs, getPostBySlug } from '@/lib/blogs';
-import { SITE_NAME, SITE_URL } from '@/lib/constants';
+import { buildMetaDescription, buildSeoTitle } from '@/lib/seo';
+import { SITE_URL } from '@/lib/constants';
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -19,24 +20,27 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = getPostBySlug(slug);
-  if (!post) return { title: `Blog – ${SITE_NAME}` };
+  if (!post) return { title: buildSeoTitle('Blog Post Not Found') };
+
+  const seoTitle = buildSeoTitle(post.title);
+  const metaDescription = buildMetaDescription(post.title, post.content);
 
   return {
-    title: post.title,
-    description: post.excerpt,
+    title: seoTitle,
+    description: metaDescription,
     alternates: {
       canonical: `/blogs/${slug}`,
     },
     openGraph: {
-      title: post.title,
-      description: post.excerpt,
+      title: seoTitle.absolute,
+      description: metaDescription,
       type: 'article',
       url: `/blogs/${slug}`,
     },
     twitter: {
       card: 'summary_large_image',
-      title: post.title,
-      description: post.excerpt,
+      title: seoTitle.absolute,
+      description: metaDescription,
     },
   };
 }
@@ -53,7 +57,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: post.title,
-    description: post.excerpt,
+    description: buildMetaDescription(post.title, post.content),
     url: `${SITE_URL}/blogs/${slug}`,
     author: {
       '@type': 'Organization',
@@ -74,7 +78,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <div className="min-h-screen bg-background transition-colors duration-300 overflow-x-hidden w-full max-w-full">
       <Navbar />
-      <main className="pt-24 pb-16 px-4">
+      <main id="main-content" className="pt-24 pb-16 px-4">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
