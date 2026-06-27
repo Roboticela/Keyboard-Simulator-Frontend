@@ -67,21 +67,17 @@ export default function Hero() {
           <motion.h1
             id="hero-heading"
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground py-2 mb-4 px-2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.4 }}
           >
             Experience Keyboards Like Never Before
           </motion.h1>
-          <motion.p
-            className="text-base sm:text-lg md:text-xl lg:text-2xl text-foreground/70 max-w-3xl mx-auto mb-8 px-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
+          {/* LCP element — rendered with full opacity so the browser can record LCP immediately */}
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-foreground/70 max-w-3xl mx-auto mb-8 px-4">
             An interactive 3D keyboard simulator with real-time typing feedback, multiple laptop layouts,
             and animated hands. Use it in your browser or download the desktop app.
-          </motion.p>
+          </p>
           <motion.div
             className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center items-center px-4 w-full sm:w-auto"
             initial={{ opacity: 0 }}
