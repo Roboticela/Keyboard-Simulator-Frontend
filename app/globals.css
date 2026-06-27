@@ -370,6 +370,11 @@ body {
   animation: fade-in 0.4s ease-out both;
 }
 
+.content-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
