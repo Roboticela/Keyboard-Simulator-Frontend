@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { SITE_NAME, SITE_URL } from '@/lib/constants';
+import Script from 'next/script';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -39,7 +40,52 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} antialiased`}>{children}</body>
+      <head>
+        <link rel="preconnect" href="https://www.clarity.ms" />
+        <link rel="dns-prefetch" href="https://www.clarity.ms" />
+
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-8NELPL2FXP"
+          strategy="lazyOnload"
+        />
+        <Script
+          id="google-analytics"
+          strategy="lazyOnload"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-8NELPL2FXP');
+            `,
+          }}
+        />
+        <Script
+          id="google-adsense"
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9014031373485007"
+          crossOrigin="anonymous"
+          strategy="lazyOnload"
+        />
+      </head>
+      <body className={`${inter.variable} antialiased`}>
+        {children}
+        <Script
+          id="microsoft-clarity"
+          strategy="lazyOnload"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+              })(window, document, "clarity", "script", "viwp403njf");
+            `,
+          }}
+        />
+      </body>
     </html>
   );
 }
